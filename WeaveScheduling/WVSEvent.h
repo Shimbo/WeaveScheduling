@@ -8,13 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <EventKit/EventKit.h>
+#import "WVSSegment.h"
 
-@interface WVSEvent : NSObject
+@interface WVSEvent : WVSSegment
 
 @property (atomic, retain, readonly) NSString* title;
 @property (atomic, retain, readonly) NSString* location;
-@property (atomic, retain, readonly) NSDate* startDate;
-@property (atomic, retain, readonly) NSDate* endDate;
 
 + (instancetype) eventWithLocalEvent:(EKEvent*)event;
 + (instancetype) eventWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate;

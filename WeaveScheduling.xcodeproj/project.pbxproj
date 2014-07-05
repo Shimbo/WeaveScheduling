@@ -31,6 +31,7 @@
 		4C23CC9819688FD7000AF42C /* WVSMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C23CC9619688FD7000AF42C /* WVSMainViewController.xib */; };
 		4C78668D1968A20A00F7CEC9 /* WVSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C78668C1968A20A00F7CEC9 /* WVSEvent.m */; };
 		4C7866901968A21900F7CEC9 /* WVSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C78668F1968A21900F7CEC9 /* WVSCalendar.m */; };
+		4C7866971968BC2A00F7CEC9 /* WVSSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7866961968BC2A00F7CEC9 /* WVSSegment.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,8 @@
 		4C78668E1968A21900F7CEC9 /* WVSCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVSCalendar.h; sourceTree = "<group>"; };
 		4C78668F1968A21900F7CEC9 /* WVSCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVSCalendar.m; sourceTree = "<group>"; };
 		4C7866941968A41600F7CEC9 /* WVSParameters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WVSParameters.h; sourceTree = "<group>"; };
+		4C7866951968BC2A00F7CEC9 /* WVSSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVSSegment.h; sourceTree = "<group>"; };
+		4C7866961968BC2A00F7CEC9 /* WVSSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVSSegment.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +185,8 @@
 		4C78668A1968A1AA00F7CEC9 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
+				4C7866951968BC2A00F7CEC9 /* WVSSegment.h */,
+				4C7866961968BC2A00F7CEC9 /* WVSSegment.m */,
 				4C78668B1968A20A00F7CEC9 /* WVSEvent.h */,
 				4C78668C1968A20A00F7CEC9 /* WVSEvent.m */,
 				4C78668E1968A21900F7CEC9 /* WVSCalendar.h */,
@@ -259,6 +264,7 @@
 				4C7866901968A21900F7CEC9 /* WVSCalendar.m in Sources */,
 				4C23CC9719688FD7000AF42C /* WVSMainViewController.m in Sources */,
 				4C23CC7219688F9E000AF42C /* main.m in Sources */,
+				4C7866971968BC2A00F7CEC9 /* WVSSegment.m in Sources */,
 				4C1D2FD31968947E007CAD92 /* ULUIDefs.m in Sources */,
 				4C78668D1968A20A00F7CEC9 /* WVSEvent.m in Sources */,
 				4C23CC7619688F9E000AF42C /* WVSAppDelegate.m in Sources */,

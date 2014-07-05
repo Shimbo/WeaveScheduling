@@ -89,35 +89,68 @@
     [dictionary setObject:_endDate forKey:@"endDate"];
     
     // Merging segments of time, at that point events are sorted by start date
-    NSMutableArray* segments = [NSMutableArray array];
-    NSDate* lastSegmentStartDate = nil;
-    NSDate* lastSegmentEndDate = nil;
-    NSMutableDictionary* lastSegment = nil;
-    for ( NSInteger n = 0; n < _events.count; n++ )
+    NSArray* segments = [self mergedSegments];
+    NSMutableArray* segmentsData = [NSMutableArray array];
+    for ( WVSSegment* segment in segments )
     {
-        WVSEvent* event = _events[n];
-        
+        NSDictionary* segmentData = [NSDictionary dictionaryWithObjectsAndKeys:
+            segment.startDate, @"startDate",
+            segment.endDate, @"endDate", nil];
+        [segmentsData addObject:segmentData];
+    }
+    
+    [dictionary setObject:segmentsData forKey:@"segments"];
+    return dictionary;
+}
+
+#pragma mark - Matching logic
+
++ (NSArray*) mergeSegments:(NSArray*)oldSegments
+{
+    // Merging segments of time, at that point events are sorted by start date
+    NSMutableArray* segments = [NSMutableArray array];
+    WVSSegment* lastSegment = nil;
+    for ( WVSSegment* oldSegment in oldSegments )
+    {
         // Merging segments if the end date for the previous segment is less than meeting duration
         // away from the next segment's start date (i.e. user can't have meeting in between)
-        if (lastSegment && [lastSegmentEndDate compare:[event.startDate dateByAddingTimeInterval:-WVSMinimalMeetingDuration]] == NSOrderedDescending)
+        if (lastSegment && [lastSegment.endDate compare:[oldSegment.startDate dateByAddingTimeInterval:-WVSMinimalMeetingDuration]] == NSOrderedDescending)
         {
-            lastSegmentEndDate = event.endDate;
-            [lastSegment setObject:lastSegmentEndDate forKey:@"endDate"];
+            lastSegment.endDate = oldSegment.endDate;
         }
         else
         {
             // Otherwise create new segment
-            lastSegmentStartDate = [event.startDate copy];
-            lastSegmentEndDate = [event.endDate copy];
-            lastSegment = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                           lastSegmentStartDate, @"startDate",
-                           lastSegmentEndDate, @"endDate", nil];
+            lastSegment = [[WVSSegment alloc] init];
+            lastSegment.startDate = [oldSegment.startDate copy];
+            lastSegment.endDate = [oldSegment.endDate copy];
             [segments addObject:lastSegment];
         }
     }
+    return segments;
+}
+
+- (NSArray*) mergedSegments
+{
+    return [WVSCalendar mergeSegments:_events];
+}
+
+- (NSArray*) mutuallyUnavailableSegments:(WVSCalendar*)otherCalendar
+{
+    // Summing each calendar's segments
+    NSMutableArray* segments = [NSMutableArray array];
+    [segments addObjectsFromArray:[self mergedSegments]];
+    [segments addObjectsFromArray:[otherCalendar mergedSegments]];
     
-    [dictionary setObject:segments forKey:@"segments"];
-    return dictionary;
+    // Sorting segments
+    NSArray *sortedSegments = [segments sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult(WVSSegment* obj1, WVSSegment* obj2) {
+        return [obj1.startDate compare:obj2.startDate];
+    }];
+    
+    // Merging result
+    NSArray* mergedSegments = [WVSCalendar mergeSegments:sortedSegments];
+    
+    return mergedSegments;
 }
 
 @end

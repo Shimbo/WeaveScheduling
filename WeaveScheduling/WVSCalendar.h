@@ -19,4 +19,7 @@
 
 - (NSDictionary*) toDictionary;
 
+- (NSArray*) mergedSegments;
+- (NSArray*) mutuallyUnavailableSegments:(WVSCalendar*)otherCalendar;
+
 @end
