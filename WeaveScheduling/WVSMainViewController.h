@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WVSCalendar.h"
+
 
 @interface WVSMainViewController : UIViewController
+{
+    WVSCalendar* _stubUserCalendar;
+}
 
 - (IBAction)createMeetingTapped:(id)sender;
 

@@ -29,6 +29,8 @@
 		4C23CC7819688F9E000AF42C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C23CC7719688F9E000AF42C /* Images.xcassets */; };
 		4C23CC9719688FD7000AF42C /* WVSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C23CC9519688FD7000AF42C /* WVSMainViewController.m */; };
 		4C23CC9819688FD7000AF42C /* WVSMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C23CC9619688FD7000AF42C /* WVSMainViewController.xib */; };
+		4C78668D1968A20A00F7CEC9 /* WVSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C78668C1968A20A00F7CEC9 /* WVSEvent.m */; };
+		4C7866901968A21900F7CEC9 /* WVSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C78668F1968A21900F7CEC9 /* WVSCalendar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,11 @@
 		4C23CC9419688FD7000AF42C /* WVSMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVSMainViewController.h; sourceTree = "<group>"; };
 		4C23CC9519688FD7000AF42C /* WVSMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVSMainViewController.m; sourceTree = "<group>"; };
 		4C23CC9619688FD7000AF42C /* WVSMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WVSMainViewController.xib; sourceTree = "<group>"; };
+		4C78668B1968A20A00F7CEC9 /* WVSEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVSEvent.h; sourceTree = "<group>"; };
+		4C78668C1968A20A00F7CEC9 /* WVSEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVSEvent.m; sourceTree = "<group>"; };
+		4C78668E1968A21900F7CEC9 /* WVSCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVSCalendar.h; sourceTree = "<group>"; };
+		4C78668F1968A21900F7CEC9 /* WVSCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVSCalendar.m; sourceTree = "<group>"; };
+		4C7866941968A41600F7CEC9 /* WVSParameters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WVSParameters.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,11 +156,13 @@
 				4C1D2FD01968947E007CAD92 /* Libs */,
 				4C1D2FCB196893E4007CAD92 /* Resources */,
 				4C23CC6C19688F9E000AF42C /* Supporting Files */,
+				4C78668A1968A1AA00F7CEC9 /* Data Model */,
 				4C23CC7419688F9E000AF42C /* WVSAppDelegate.h */,
 				4C23CC7519688F9E000AF42C /* WVSAppDelegate.m */,
 				4C23CC9419688FD7000AF42C /* WVSMainViewController.h */,
 				4C23CC9519688FD7000AF42C /* WVSMainViewController.m */,
 				4C23CC9619688FD7000AF42C /* WVSMainViewController.xib */,
+				4C7866941968A41600F7CEC9 /* WVSParameters.h */,
 			);
 			path = WeaveScheduling;
 			sourceTree = "<group>";
@@ -168,6 +177,17 @@
 				4C23CC7319688F9E000AF42C /* WeaveScheduling-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C78668A1968A1AA00F7CEC9 /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				4C78668B1968A20A00F7CEC9 /* WVSEvent.h */,
+				4C78668C1968A20A00F7CEC9 /* WVSEvent.m */,
+				4C78668E1968A21900F7CEC9 /* WVSCalendar.h */,
+				4C78668F1968A21900F7CEC9 /* WVSCalendar.m */,
+			);
+			name = "Data Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,9 +256,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C7866901968A21900F7CEC9 /* WVSCalendar.m in Sources */,
 				4C23CC9719688FD7000AF42C /* WVSMainViewController.m in Sources */,
 				4C23CC7219688F9E000AF42C /* main.m in Sources */,
 				4C1D2FD31968947E007CAD92 /* ULUIDefs.m in Sources */,
+				4C78668D1968A20A00F7CEC9 /* WVSEvent.m in Sources */,
 				4C23CC7619688F9E000AF42C /* WVSAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

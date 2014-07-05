@@ -15,8 +15,9 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
-    #import "ULUIDefs.h"
     #import <Parse/Parse.h>
+    #import "ULUIDefs.h"
+    #import "WVSParameters.h"
 #endif
 
 #define currentUser [PFUser currentUser]

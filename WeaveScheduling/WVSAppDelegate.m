@@ -18,16 +18,17 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    // Parse
+    [Parse setApplicationId:@"MhPmSSQ9FXm0fe9iEdHxLwKBTbld7Kq67mX5d7qz"
+                  clientKey:@"YisWNb5gN9QD2PMpZWzrGWQetiXaZ8GC0CH6wVVO"];
+    [PFUser enableAutomaticUser];
+    
     // Navigation controller and main view
     WVSMainViewController *mainViewController = [[WVSMainViewController alloc] initWithNibName:@"WVSMainViewController" bundle:nil];
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     navController.navigationBar.hidden = TRUE;
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
-    
-    // Parse
-    [Parse setApplicationId:@"MhPmSSQ9FXm0fe9iEdHxLwKBTbld7Kq67mX5d7qz"
-                  clientKey:@"YisWNb5gN9QD2PMpZWzrGWQetiXaZ8GC0CH6wVVO"];
     
     return YES;
 }
