@@ -27,6 +27,7 @@
     WVSMainViewController *mainViewController = [[WVSMainViewController alloc] initWithNibName:@"WVSMainViewController" bundle:nil];
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     navController.navigationBar.hidden = TRUE;
+    navController.interactivePopGestureRecognizer.enabled = NO;
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     
