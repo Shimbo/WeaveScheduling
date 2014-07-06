@@ -138,6 +138,7 @@
     return [WVSCalendar mergeSegments:_events];
 }
 
+// TODO: unused now, could be used to build mutually available segments for recommendations
 - (NSArray*) mutuallyUnavailableSegments:(WVSCalendar*)otherCalendar
 {
     // Summing each calendar's segments
@@ -154,6 +155,19 @@
     NSArray* mergedSegments = [WVSCalendar mergeSegments:sortedSegments];
     
     return mergedSegments;
+}
+
+- (BOOL) checkTimeAvailability:(NSDate*)date
+{
+    NSDate* endDate = [date dateByAddingTimeInterval:WVSDefaultMeetingDuration];
+    for (WVSEvent* event in _events)
+    {
+        if ( [event.startDate compare:date] == NSOrderedAscending && [event.endDate compare:date] == NSOrderedDescending )
+            return NO;
+        if ( [event.startDate compare:endDate] == NSOrderedAscending && [event.endDate compare:endDate] == NSOrderedDescending )
+            return NO;
+    }
+    return YES;
 }
 
 @end

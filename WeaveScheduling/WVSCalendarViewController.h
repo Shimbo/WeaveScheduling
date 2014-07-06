@@ -18,6 +18,10 @@
     
     WVSCalendar* _ownCalendar;
     WVSCalendar* _otherCalendar;
+    
+    WVSCalendarDailyView*  _dayViews[WVSCalendarDaysToLoad];
+    
+    UIView* _meetingView;
 }
 
 - (id) initWithOwnCalendar:(WVSCalendar*)ownCalendar andOtherCalendar:(WVSCalendar*)otherCalendar;

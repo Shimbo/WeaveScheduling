@@ -43,7 +43,7 @@
     else
         segmentView.originY = (startHours - (float)WVSFirstHourInCalendar)*(float)WVSDayViewRowHeight + WVSDayViewHeaderHeight + WVSDayViewTopOffset;
     
-    segmentView.height = (float)WVSDayViewRowHeight*([endDate timeIntervalSince1970] - [startDate timeIntervalSince1970])/3600.0;
+    segmentView.height = (float)WVSDayViewRowHeight*([endDate timeIntervalSince1970] - [startDate timeIntervalSince1970])/WVSDayViewRowInSeconds;
     
     return segmentView;
 }
@@ -115,9 +115,9 @@
     CGContextSetLineWidth(context, 0.25f);
     
     // Filling everything as available
-    CGRect frame = CGRectMake(0, WVSDayViewHeaderHeight + WVSDayViewTopOffset, self.width, WVSDayViewRowHeight * WVSHoursToShowInCalendar);
-    CGContextSetFillColorWithColor(context, [UIColor colorWithHexString:@"5ffdb8"].CGColor);
-    CGContextFillRect(context, frame);
+    /*CGRect frame = CGRectMake(0, WVSDayViewHeaderHeight + WVSDayViewTopOffset, self.width, WVSDayViewRowHeight * WVSHoursToShowInCalendar);
+    CGContextSetFillColorWithColor(context, [UIColor colorWithHexString:@"FFFFFF"].CGColor);
+    CGContextFillRect(context, frame);*/
     
     // Drawing lines in between
     for ( NSInteger n = 0; n < 24; n ++ )

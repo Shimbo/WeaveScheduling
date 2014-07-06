@@ -49,6 +49,10 @@
         [_timeView addSubview:timeLabel];
     }
     
+    // Tap recognizer for collection
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(collectionHandleTap:)];
+    [_collectionView addGestureRecognizer:tapRecognizer];
+    
     self.navigationController.navigationBar.hidden = NO;
 }
 
@@ -66,15 +70,21 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    WVSCalendarDailyView* dailyView = [[[NSBundle mainBundle] loadNibNamed:@"WVSCalendarDailyView" owner:self options:nil] objectAtIndex:0];
-    
-    // Remove hours/stuff from days
-    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:86400*indexPath.row];
-    NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
-    date = [[NSCalendar currentCalendar] dateFromComponents:comps];
-    
-    // Setup day view
-    [dailyView setupDay:date fromEvents:_ownCalendar.events andSegments:_otherCalendar.events];
+    WVSCalendarDailyView* dailyView = _dayViews[indexPath.row];
+    if ( ! dailyView )
+    {
+        dailyView = [[[NSBundle mainBundle] loadNibNamed:@"WVSCalendarDailyView" owner:self options:nil] objectAtIndex:0];
+        
+        // Create date without hour/minute components
+        NSDate* date = [NSDate dateWithTimeIntervalSinceNow:86400*indexPath.row];
+        NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
+        date = [[NSCalendar currentCalendar] dateFromComponents:comps];
+        
+        // Setup day view
+        [dailyView setupDay:date fromEvents:_ownCalendar.events andSegments:_otherCalendar.events];
+        
+        _dayViews[indexPath.row] = dailyView;
+    }
     
     // Setup cell
     WVSCalendarCollectionCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"dayCell" forIndexPath:indexPath];
@@ -82,8 +92,6 @@
     [cell addSubview:dailyView];
     cell.view = dailyView;
     cell.view.dayLabel.originY = _scrollView.contentInset.top + _scrollView.contentOffset.y;
-    if ( cell.view.dayLabel.originY < 0 )
-        cell.view.dayLabel.originY = 0;
     
     return cell;
 }
@@ -95,6 +103,82 @@
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
     return WVSDayViewSpacing*UNI_COEF;
+}
+
+#pragma mark - CollectionView tap handling
+
+- (void)collectionHandleTap:(UITapGestureRecognizer*)sender{
+    
+    // Calculating tap point and tapped cell
+    CGPoint tapPoint = [sender locationInView:_collectionView];
+    NSInteger cell = tapPoint.x / WVSDayViewSize.width;
+    
+    // Tapping on a view that wasn't initialized (impossible, but just in case)
+    if ( ! _dayViews[cell] )
+        return;
+    
+    // Positioning inside the cell
+    CGPoint pointInCell = CGPointMake(((NSInteger)tapPoint.x % (NSInteger)WVSDayViewSize.width), tapPoint.y);
+    
+    // Tapped on the header section
+    if ( pointInCell.y < WVSDayViewHeaderHeight )
+        return;
+
+    // Centering and fixing edge cases
+    pointInCell.y -= WVSDayViewRowHeight / 2.0;
+    if ( pointInCell.y < WVSDayViewHeaderHeight + WVSDayViewTopOffset )
+        pointInCell.y = WVSDayViewHeaderHeight + WVSDayViewTopOffset;
+    if ( pointInCell.y > WVSDayViewSize.height - WVSDayViewTopOffset - WVSDayViewRowHeight )
+        pointInCell.y = WVSDayViewSize.height - WVSDayViewTopOffset - WVSDayViewRowHeight;
+    
+    // Calculating rounded time
+    NSTimeInterval proposedTime = (pointInCell.y - WVSDayViewHeaderHeight - WVSDayViewTopOffset) * WVSDayViewRowInSeconds / WVSDayViewRowHeight;
+    NSInteger intervalCount = round(proposedTime / WVSNewMeetingThreshold);
+    proposedTime = intervalCount * WVSNewMeetingThreshold + WVSFirstHourInCalendar * 3600.0;
+    
+    // Calculating midnight date and adding proposed time
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:86400*cell];
+    NSDateComponents* comps = [[NSCalendar currentCalendar] components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:date];
+    date = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    date = [date dateByAddingTimeInterval:proposedTime];
+    
+    // Check if this time slot is unavailable
+    BOOL availableThis = [_ownCalendar checkTimeAvailability:date];
+    BOOL availableThat = [_otherCalendar checkTimeAvailability:date];
+    if ( ! availableThis || ! availableThat )
+        return;
+    
+    // Calculate view position
+    NSInteger verticalPosition = (proposedTime / WVSDayViewRowInSeconds - WVSFirstHourInCalendar) * WVSDayViewRowHeight + WVSDayViewHeaderHeight + WVSDayViewTopOffset;
+    
+    // Create meeting view if needed
+    if ( ! _meetingView )
+    {
+        // TODO: here's the third initializer for meeting view separate class
+        _meetingView = [[UIView alloc] initWithFrame:CGRectMake(0, verticalPosition, WVSDayViewSize.width, WVSDayViewRowHeight*WVSDefaultMeetingDuration/WVSDayViewRowInSeconds)];
+        _meetingView.backgroundColor = [UIColor colorWithHexString:@"5ffdb8"];
+        
+        // Label
+        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, _meetingView.width, 40)];
+        NSString* titleString = @"Nina and Username";
+        NSString* locationString = @"Tap \"Done\" to finish";
+        label.text = [NSString stringWithFormat:@"%@\n%@", titleString, locationString];
+        label.numberOfLines = 2;
+        label.font = [UIFont systemFontOfSize:14];
+        [_meetingView addSubview:label];
+    }
+    else // otherwise remove it from previous cell before adding again
+    {
+        _meetingView.originY = verticalPosition;
+        [_meetingView removeFromSuperview];
+    }
+    
+    // Add the view to the cell
+    [_dayViews[cell] addSubview:_meetingView];
+    [_dayViews[cell] bringSubviewToFront:_dayViews[cell].dayLabel]; // TODO (to initializer too)
+    
+    // Enable done button
+    // TODO
 }
 
 #pragma mark - ScrollView delegate

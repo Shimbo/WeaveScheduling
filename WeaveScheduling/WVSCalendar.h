@@ -22,4 +22,6 @@
 - (NSArray*) mergedSegments;
 - (NSArray*) mutuallyUnavailableSegments:(WVSCalendar*)otherCalendar;
 
+- (BOOL) checkTimeAvailability:(NSDate*)date;
+
 @end
