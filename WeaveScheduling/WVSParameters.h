@@ -6,15 +6,17 @@
 //
 //
 
+// Logic
 static const NSInteger WVSCalendarDaysToLoad = 30;
 static const NSTimeInterval WVSMinimalMeetingDuration = 3600.0;
 
+// Custom calendar view
 static const NSInteger WVSFirstHourInCalendar   = 9;
 static const NSInteger WVSHoursToShowInCalendar = 12;
 
-// UI
+// Caledar day view
 static const NSInteger WVSDayViewHeaderHeight = 50;
 static const NSInteger WVSDayViewRowHeight = 50;
 static const NSInteger WVSDayViewTopOffset = 10;
-static const CGSize WVSCustomCellSize = (CGSize){240, WVSDayViewHeaderHeight + WVSDayViewRowHeight*WVSHoursToShowInCalendar + WVSDayViewTopOffset*2};
-static const CGFloat WVSCustomCellSpacing = 0.0f;
+static const CGSize WVSDayViewSize = (CGSize){240, WVSDayViewHeaderHeight + WVSDayViewRowHeight*WVSHoursToShowInCalendar + WVSDayViewTopOffset*2};
+static const CGFloat WVSDayViewSpacing = 0.0f;

@@ -212,11 +212,11 @@
 		4C7866981968C29600F7CEC9 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				4C7866A61968D30E00F7CEC9 /* WVSCalendarCollectionView.h */,
-				4C7866A71968D30E00F7CEC9 /* WVSCalendarCollectionView.m */,
 				4C78669E1968C32800F7CEC9 /* WVSCalendarDailyView.h */,
 				4C78669F1968C32800F7CEC9 /* WVSCalendarDailyView.m */,
 				4C7866A11968C33F00F7CEC9 /* WVSCalendarDailyView.xib */,
+				4C7866A61968D30E00F7CEC9 /* WVSCalendarCollectionView.h */,
+				4C7866A71968D30E00F7CEC9 /* WVSCalendarCollectionView.m */,
 				4C7866991968C2AE00F7CEC9 /* WVSCalendarViewController.h */,
 				4C78669A1968C2AE00F7CEC9 /* WVSCalendarViewController.m */,
 				4C78669B1968C2AE00F7CEC9 /* WVSCalendarViewController.xib */,

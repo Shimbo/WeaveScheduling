@@ -33,7 +33,7 @@
 }
 
 - (IBAction)createMeetingTapped:(id)sender {
-    WVSCalendarViewController* calendarView = [[WVSCalendarViewController alloc] initWithCalendarThis:_currentUserCalendar andCalendarThat:_stubUserCalendar];
+    WVSCalendarViewController* calendarView = [[WVSCalendarViewController alloc] initWithOwnCalendar:_currentUserCalendar andOtherCalendar:_stubUserCalendar];
     [self.navigationController pushViewController:calendarView animated:YES];
 }
 

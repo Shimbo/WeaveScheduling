@@ -19,7 +19,7 @@
 -(id)init {
     self = [super init];
     if (self) {
-        self.itemSize = WVSCustomCellSize;
+        self.itemSize = WVSDayViewSize;
         self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     }
     return self;
@@ -35,7 +35,7 @@
         return proposedContentOffset;
     
     CGFloat offsetAdjustment = MAXFLOAT;
-    CGFloat horizontalOffset = proposedContentOffset.x + WVSCustomCellSpacing*UNI_COEF;
+    CGFloat horizontalOffset = proposedContentOffset.x + WVSDayViewSpacing*UNI_COEF;
     
     CGRect targetRect = CGRectMake(proposedContentOffset.x, 0, self.collectionView.bounds.size.width, self.collectionView.bounds.size.height);
     

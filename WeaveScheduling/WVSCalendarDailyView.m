@@ -13,6 +13,14 @@
 
 - (UIView*) createViewForDay:(NSDate*)day withStartDate:(NSDate*)startDate andEndDate:(NSDate*)endDate strict:(BOOL)strict
 {
+    NSDate* dayEnds = [day dateByAddingTimeInterval:86400];
+    
+    // Check if segment doesn't intersect with this day
+    NSComparisonResult startResult = [startDate compare:day];
+    NSComparisonResult endResult = [endDate compare:dayEnds];
+    if ( startResult == endResult )
+        return nil;
+    
     // Extract hours
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:startDate];
@@ -42,26 +50,21 @@
 
 - (void) setupDay:(NSDate*)day fromEvents:(NSArray*)events andSegments:(NSArray*)segments
 {
+    // Top label
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setDoesRelativeDateFormatting:YES];
     _dayLabel.text = [formatter stringFromDate:day];
     
-    NSDate* dayEnds = [day dateByAddingTimeInterval:86400];
-    
     // Opponent's calendar first, mark with gray
     for ( WVSSegment* segment in segments )
     {
-        // Check if segment is out of this day
-        NSComparisonResult startResult = [segment.startDate compare:day];
-        NSComparisonResult endResult = [segment.endDate compare:dayEnds];
-        if ( startResult == endResult )
-            continue;
-        
+        // Get segment view
         UIView* segmentView = [self createViewForDay:day withStartDate:segment.startDate andEndDate:segment.endDate strict:YES];
         if ( ! segmentView )
             continue;
         
+        // Init it with other user's segment
         segmentView.backgroundColor = [UIColor colorWithHexString:@"bebebe"];
         
         UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, self.width, 20)];
@@ -76,16 +79,12 @@
     // User's calendar, mark with blue
     for ( WVSEvent* event in events )
     {
-        // Check if segment is out of this day
-        NSComparisonResult startResult = [event.startDate compare:day];
-        NSComparisonResult endResult = [event.endDate compare:dayEnds];
-        if ( startResult == endResult )
-            continue;
-        
+        // Get segment view
         UIView* segmentView = [self createViewForDay:day withStartDate:event.startDate andEndDate:event.endDate strict:NO];
         if ( ! segmentView )
             continue;
         
+        // Init it with user's event (TODO: refactor it to a separate class with two initializers)
         segmentView.backgroundColor = [UIColor colorWithHexString:@"7794cb"];
         
         UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, self.width, 40)];

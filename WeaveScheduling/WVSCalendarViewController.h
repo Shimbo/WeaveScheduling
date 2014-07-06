@@ -16,10 +16,10 @@
     IBOutlet UICollectionView *_collectionView;
     IBOutlet UIView *_timeView;
     
-    WVSCalendar* _thisCalendar;
-    WVSCalendar* _thatCalendar;
+    WVSCalendar* _ownCalendar;
+    WVSCalendar* _otherCalendar;
 }
 
-- (id) initWithCalendarThis:(WVSCalendar*)thisCalendar andCalendarThat:(WVSCalendar*)thatCalendar;
+- (id) initWithOwnCalendar:(WVSCalendar*)ownCalendar andOtherCalendar:(WVSCalendar*)otherCalendar;
 
 @end
