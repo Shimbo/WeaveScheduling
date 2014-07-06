@@ -32,6 +32,11 @@
 		4C78668D1968A20A00F7CEC9 /* WVSEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C78668C1968A20A00F7CEC9 /* WVSEvent.m */; };
 		4C7866901968A21900F7CEC9 /* WVSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C78668F1968A21900F7CEC9 /* WVSCalendar.m */; };
 		4C7866971968BC2A00F7CEC9 /* WVSSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7866961968BC2A00F7CEC9 /* WVSSegment.m */; };
+		4C78669C1968C2AE00F7CEC9 /* WVSCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C78669A1968C2AE00F7CEC9 /* WVSCalendarViewController.m */; };
+		4C78669D1968C2AE00F7CEC9 /* WVSCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C78669B1968C2AE00F7CEC9 /* WVSCalendarViewController.xib */; };
+		4C7866A01968C32800F7CEC9 /* WVSCalendarDailyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C78669F1968C32800F7CEC9 /* WVSCalendarDailyView.m */; };
+		4C7866A21968C33F00F7CEC9 /* WVSCalendarDailyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7866A11968C33F00F7CEC9 /* WVSCalendarDailyView.xib */; };
+		4C7866A81968D30E00F7CEC9 /* WVSCalendarCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7866A71968D30E00F7CEC9 /* WVSCalendarCollectionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +76,14 @@
 		4C7866941968A41600F7CEC9 /* WVSParameters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WVSParameters.h; sourceTree = "<group>"; };
 		4C7866951968BC2A00F7CEC9 /* WVSSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVSSegment.h; sourceTree = "<group>"; };
 		4C7866961968BC2A00F7CEC9 /* WVSSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVSSegment.m; sourceTree = "<group>"; };
+		4C7866991968C2AE00F7CEC9 /* WVSCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVSCalendarViewController.h; sourceTree = "<group>"; };
+		4C78669A1968C2AE00F7CEC9 /* WVSCalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVSCalendarViewController.m; sourceTree = "<group>"; };
+		4C78669B1968C2AE00F7CEC9 /* WVSCalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WVSCalendarViewController.xib; sourceTree = "<group>"; };
+		4C78669E1968C32800F7CEC9 /* WVSCalendarDailyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVSCalendarDailyView.h; sourceTree = "<group>"; };
+		4C78669F1968C32800F7CEC9 /* WVSCalendarDailyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVSCalendarDailyView.m; sourceTree = "<group>"; };
+		4C7866A11968C33F00F7CEC9 /* WVSCalendarDailyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WVSCalendarDailyView.xib; sourceTree = "<group>"; };
+		4C7866A61968D30E00F7CEC9 /* WVSCalendarCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVSCalendarCollectionView.h; sourceTree = "<group>"; };
+		4C7866A71968D30E00F7CEC9 /* WVSCalendarCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVSCalendarCollectionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +173,7 @@
 				4C1D2FCB196893E4007CAD92 /* Resources */,
 				4C23CC6C19688F9E000AF42C /* Supporting Files */,
 				4C78668A1968A1AA00F7CEC9 /* Data Model */,
+				4C7866981968C29600F7CEC9 /* UI */,
 				4C23CC7419688F9E000AF42C /* WVSAppDelegate.h */,
 				4C23CC7519688F9E000AF42C /* WVSAppDelegate.m */,
 				4C23CC9419688FD7000AF42C /* WVSMainViewController.h */,
@@ -193,6 +207,21 @@
 				4C78668F1968A21900F7CEC9 /* WVSCalendar.m */,
 			);
 			name = "Data Model";
+			sourceTree = "<group>";
+		};
+		4C7866981968C29600F7CEC9 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				4C7866A61968D30E00F7CEC9 /* WVSCalendarCollectionView.h */,
+				4C7866A71968D30E00F7CEC9 /* WVSCalendarCollectionView.m */,
+				4C78669E1968C32800F7CEC9 /* WVSCalendarDailyView.h */,
+				4C78669F1968C32800F7CEC9 /* WVSCalendarDailyView.m */,
+				4C7866A11968C33F00F7CEC9 /* WVSCalendarDailyView.xib */,
+				4C7866991968C2AE00F7CEC9 /* WVSCalendarViewController.h */,
+				4C78669A1968C2AE00F7CEC9 /* WVSCalendarViewController.m */,
+				4C78669B1968C2AE00F7CEC9 /* WVSCalendarViewController.xib */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +280,8 @@
 				4C23CC7819688F9E000AF42C /* Images.xcassets in Resources */,
 				4C1D2FCF196893E4007CAD92 /* WeaveBottom@2x.png in Resources */,
 				4C23CC9819688FD7000AF42C /* WVSMainViewController.xib in Resources */,
+				4C7866A21968C33F00F7CEC9 /* WVSCalendarDailyView.xib in Resources */,
+				4C78669D1968C2AE00F7CEC9 /* WVSCalendarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,8 +297,11 @@
 				4C23CC7219688F9E000AF42C /* main.m in Sources */,
 				4C7866971968BC2A00F7CEC9 /* WVSSegment.m in Sources */,
 				4C1D2FD31968947E007CAD92 /* ULUIDefs.m in Sources */,
+				4C7866A81968D30E00F7CEC9 /* WVSCalendarCollectionView.m in Sources */,
 				4C78668D1968A20A00F7CEC9 /* WVSEvent.m in Sources */,
 				4C23CC7619688F9E000AF42C /* WVSAppDelegate.m in Sources */,
+				4C7866A01968C32800F7CEC9 /* WVSCalendarDailyView.m in Sources */,
+				4C78669C1968C2AE00F7CEC9 /* WVSCalendarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

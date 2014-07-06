@@ -7,6 +7,7 @@
 //
 
 #import "WVSMainViewController.h"
+#import "WVSCalendarViewController.h"
 
 @implementation WVSMainViewController
 
@@ -32,7 +33,8 @@
 }
 
 - (IBAction)createMeetingTapped:(id)sender {
-    
+    WVSCalendarViewController* calendarView = [[WVSCalendarViewController alloc] initWithCalendarThis:_currentUserCalendar andCalendarThat:_stubUserCalendar];
+    [self.navigationController pushViewController:calendarView animated:YES];
 }
 
 #pragma mark - Save/load logic
@@ -52,14 +54,14 @@
 - (void) saveCurrentCalendar
 {
     // Saving current user's calendar so others will be able to find matching time slots
-    WVSCalendar* calendar = [WVSCalendar calendarWithLocalEvents];
-    if ( ! calendar )
+    _currentUserCalendar = [WVSCalendar calendarWithLocalEvents];
+    if ( ! _currentUserCalendar )
     {
         NSLog(@"Error: local events load failed");
         return;
     }
     
-    NSDictionary* dictionaryToSave = [calendar toDictionary];
+    NSDictionary* dictionaryToSave = [_currentUserCalendar toDictionary];
     if ( ! dictionaryToSave )
         return;
     
@@ -69,10 +71,21 @@
 
 - (void) loadStubCalendar
 {
+    [_activityIndicator startAnimating];
+    self.view.userInteractionEnabled = NO;
     PFUser* stubUser = [PFUser objectWithoutDataWithObjectId:@"GyraPxATkm"];
     [stubUser fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        NSDictionary* calendarData = [object objectForKey:@"calendar"];
-        _stubUserCalendar = [WVSCalendar calendarWithDictionary:calendarData];
+        if ( object && ! error )
+        {
+            NSDictionary* calendarData = [object objectForKey:@"calendar"];
+            _stubUserCalendar = [WVSCalendar calendarWithDictionary:calendarData];
+        }
+        else
+        {
+            // TODO: error message
+        }
+        [_activityIndicator stopAnimating];
+        self.view.userInteractionEnabled = YES;
     }];
 }
 

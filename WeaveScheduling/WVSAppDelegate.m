@@ -30,6 +30,13 @@
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     
+    // Navigation bar customization
+    navController.navigationBar.translucent = NO;
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHexString:@"464545"]];
+    navController.navigationBar.tintColor = [UIColor colorWithHexString:@"48dc9b"];
+    [[UIBarButtonItem appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithHexString:@"48dc9b"], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil]];
+    
     return YES;
 }
 

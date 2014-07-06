@@ -33,6 +33,9 @@
     }];
     for (EKEvent *event in sortedEvents)
     {
+        // Skip all birthdays
+        if ( event.calendar.type == EKCalendarTypeBirthday )
+            continue;
         WVSEvent* customEvent = [WVSEvent eventWithLocalEvent:event];
         [_events addObject:customEvent];
     }

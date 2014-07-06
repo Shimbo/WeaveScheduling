@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "WVSCalendar.h"
 
-
 @interface WVSMainViewController : UIViewController
 {
+    WVSCalendar* _currentUserCalendar;
     WVSCalendar* _stubUserCalendar;
+    IBOutlet UIActivityIndicatorView *_activityIndicator;
 }
 
 - (IBAction)createMeetingTapped:(id)sender;
