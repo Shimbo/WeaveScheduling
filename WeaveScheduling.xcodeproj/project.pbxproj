@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0F88911969FCA800EC7A16 /* WVSNewMeetingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0F888F1969FCA800EC7A16 /* WVSNewMeetingViewController.m */; };
+		4C0F88921969FCA800EC7A16 /* WVSNewMeetingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C0F88901969FCA800EC7A16 /* WVSNewMeetingViewController.xib */; };
+		4C0F88941969FDE000EC7A16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0F88931969FDE000EC7A16 /* MapKit.framework */; };
+		4C0F88961969FFAD00EC7A16 /* Plate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0F88951969FFAD00EC7A16 /* Plate@2x.png */; };
 		4C1D2FCE196893E4007CAD92 /* WeaveBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C1D2FCC196893E4007CAD92 /* WeaveBg@2x.png */; };
 		4C1D2FCF196893E4007CAD92 /* WeaveBottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C1D2FCD196893E4007CAD92 /* WeaveBottom@2x.png */; };
 		4C1D2FD31968947E007CAD92 /* ULUIDefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D2FD21968947E007CAD92 /* ULUIDefs.m */; };
@@ -40,6 +44,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C0F888E1969FCA800EC7A16 /* WVSNewMeetingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WVSNewMeetingViewController.h; sourceTree = "<group>"; };
+		4C0F888F1969FCA800EC7A16 /* WVSNewMeetingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WVSNewMeetingViewController.m; sourceTree = "<group>"; };
+		4C0F88901969FCA800EC7A16 /* WVSNewMeetingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WVSNewMeetingViewController.xib; sourceTree = "<group>"; };
+		4C0F88931969FDE000EC7A16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4C0F88951969FFAD00EC7A16 /* Plate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Plate@2x.png"; sourceTree = "<group>"; };
 		4C1D2FCC196893E4007CAD92 /* WeaveBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WeaveBg@2x.png"; sourceTree = "<group>"; };
 		4C1D2FCD196893E4007CAD92 /* WeaveBottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WeaveBottom@2x.png"; sourceTree = "<group>"; };
 		4C1D2FD11968947E007CAD92 /* ULUIDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ULUIDefs.h; sourceTree = "<group>"; };
@@ -91,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C0F88941969FDE000EC7A16 /* MapKit.framework in Frameworks */,
 				4C1D2FE919689803007CAD92 /* SystemConfiguration.framework in Frameworks */,
 				4C1D2FE7196897FB007CAD92 /* StoreKit.framework in Frameworks */,
 				4C1D2FE5196897F4007CAD92 /* Security.framework in Frameworks */,
@@ -113,6 +123,7 @@
 		4C1D2FCB196893E4007CAD92 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4C0F88951969FFAD00EC7A16 /* Plate@2x.png */,
 				4C1D2FCC196893E4007CAD92 /* WeaveBg@2x.png */,
 				4C1D2FCD196893E4007CAD92 /* WeaveBottom@2x.png */,
 			);
@@ -148,6 +159,7 @@
 		4C23CC6419688F9E000AF42C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C0F88931969FDE000EC7A16 /* MapKit.framework */,
 				4C1D2FE819689803007CAD92 /* SystemConfiguration.framework */,
 				4C1D2FE6196897FB007CAD92 /* StoreKit.framework */,
 				4C1D2FE4196897F4007CAD92 /* Security.framework */,
@@ -220,6 +232,9 @@
 				4C7866991968C2AE00F7CEC9 /* WVSCalendarViewController.h */,
 				4C78669A1968C2AE00F7CEC9 /* WVSCalendarViewController.m */,
 				4C78669B1968C2AE00F7CEC9 /* WVSCalendarViewController.xib */,
+				4C0F888E1969FCA800EC7A16 /* WVSNewMeetingViewController.h */,
+				4C0F888F1969FCA800EC7A16 /* WVSNewMeetingViewController.m */,
+				4C0F88901969FCA800EC7A16 /* WVSNewMeetingViewController.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -277,10 +292,12 @@
 			files = (
 				4C1D2FCE196893E4007CAD92 /* WeaveBg@2x.png in Resources */,
 				4C23CC7019688F9E000AF42C /* InfoPlist.strings in Resources */,
+				4C0F88921969FCA800EC7A16 /* WVSNewMeetingViewController.xib in Resources */,
 				4C23CC7819688F9E000AF42C /* Images.xcassets in Resources */,
 				4C1D2FCF196893E4007CAD92 /* WeaveBottom@2x.png in Resources */,
 				4C23CC9819688FD7000AF42C /* WVSMainViewController.xib in Resources */,
 				4C7866A21968C33F00F7CEC9 /* WVSCalendarDailyView.xib in Resources */,
+				4C0F88961969FFAD00EC7A16 /* Plate@2x.png in Resources */,
 				4C78669D1968C2AE00F7CEC9 /* WVSCalendarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C0F88911969FCA800EC7A16 /* WVSNewMeetingViewController.m in Sources */,
 				4C7866901968A21900F7CEC9 /* WVSCalendar.m in Sources */,
 				4C23CC9719688FD7000AF42C /* WVSMainViewController.m in Sources */,
 				4C23CC7219688F9E000AF42C /* main.m in Sources */,

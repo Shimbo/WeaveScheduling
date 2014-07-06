@@ -16,14 +16,24 @@
     IBOutlet UICollectionView *_collectionView;
     IBOutlet UIView *_timeView;
     
+    // Calendars passed from outside
     WVSCalendar* _ownCalendar;
-    WVSCalendar* _otherCalendar;
+    WVSCalendar* _anotherCalendar;
     
+    // Views for days
     WVSCalendarDailyView*  _dayViews[WVSCalendarDaysToLoad];
     
-    UIView* _meetingView;
+    // New meeting data and view
+    WVSEvent*   _meeting;
+    UIView*     _meetingView;
+    
+    // Cached for scrolling
+    NSInteger   _dayToAddNewMeeting;
+    
+    // Temporary flag to restore navigation bar
+    BOOL        _calledFromRoot;
 }
 
-- (id) initWithOwnCalendar:(WVSCalendar*)ownCalendar andOtherCalendar:(WVSCalendar*)otherCalendar;
+- (id) initWithOwnCalendar:(WVSCalendar*)ownCalendar anotherCalendar:(WVSCalendar*)anotherCalendar andMeeting:(WVSEvent*)meeting;
 
 @end

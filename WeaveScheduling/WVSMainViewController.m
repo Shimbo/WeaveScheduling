@@ -8,6 +8,7 @@
 
 #import "WVSMainViewController.h"
 #import "WVSCalendarViewController.h"
+#import "WVSNewMeetingViewController.h"
 
 @implementation WVSMainViewController
 
@@ -33,7 +34,7 @@
 }
 
 - (IBAction)createMeetingTapped:(id)sender {
-    WVSCalendarViewController* calendarView = [[WVSCalendarViewController alloc] initWithOwnCalendar:_currentUserCalendar andOtherCalendar:_stubUserCalendar];
+    WVSCalendarViewController* calendarView = [[WVSCalendarViewController alloc] initWithOwnCalendar:_currentUserCalendar anotherCalendar:_stubUserCalendar andMeeting:nil];
     [self.navigationController pushViewController:calendarView animated:YES];
 }
 

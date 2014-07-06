@@ -17,5 +17,6 @@
 
 + (instancetype) eventWithLocalEvent:(EKEvent*)event;
 + (instancetype) eventWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate;
++ (instancetype) eventWithNewEvent:(NSDate*)startDate withTitle:(NSString*)title andLocation:(NSString*)location;
 
 @end

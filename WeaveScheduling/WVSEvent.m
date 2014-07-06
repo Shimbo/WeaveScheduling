@@ -43,6 +43,25 @@
     return self;
 }
 
+- (instancetype) initWithNewEvent:(NSDate*)startDate withTitle:(NSString*)title andLocation:(NSString*)location
+{
+    if ( ! startDate )
+        return nil;
+    
+    // Parent initialization
+    self = [super init];
+    if (! self)
+        return nil;
+    
+    _startDate = startDate;
+    _endDate = [startDate dateByAddingTimeInterval:WVSDefaultMeetingDuration];
+    _location = location;
+    _title = title;
+    
+    return self;
+
+}
+
 + (instancetype) eventWithLocalEvent:(EKEvent*)event
 {
     WVSEvent* thisEvent = [[WVSEvent alloc] initWithLocalEvent:event];
@@ -55,5 +74,10 @@
     return event;
 }
 
++ (instancetype) eventWithNewEvent:(NSDate*)startDate withTitle:(NSString*)title andLocation:(NSString*)location
+{
+    WVSEvent* event = [[WVSEvent alloc] initWithNewEvent:startDate withTitle:title andLocation:location];
+    return event;
+}
 
 @end
