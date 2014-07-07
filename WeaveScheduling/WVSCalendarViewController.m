@@ -170,7 +170,7 @@
         
         // Label
         UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, _meetingView.width, 40)];
-        NSString* titleString = @"Nina and Username";
+        NSString* titleString = _meeting.title;
         NSString* locationString = @"Tap \"Done\" to finish";
         label.text = [NSString stringWithFormat:@"%@\n%@", titleString, locationString];
         label.numberOfLines = 2;
@@ -225,7 +225,7 @@
     
     // Create or update meeting if created
     if ( ! _meeting )
-        _meeting = [WVSEvent eventWithNewEvent:date withTitle:@"Nina and Username" andLocation:@"Creamery"];
+        _meeting = [WVSEvent eventWithNewEvent:date withTitle:@"Nina and Username (unconfirmed)" andLocation:@"Creamery"];
     else
     {
         _meeting.startDate = date;

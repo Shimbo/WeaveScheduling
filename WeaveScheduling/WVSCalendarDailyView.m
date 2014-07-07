@@ -11,7 +11,7 @@
 
 @implementation WVSCalendarDailyView
 
-- (UIView*) createViewForDay:(NSDate*)day withStartDate:(NSDate*)startDate andEndDate:(NSDate*)endDate strict:(BOOL)strict
+- (UIView*) createEventViewForDay:(NSDate*)day withStartDate:(NSDate*)startDate andEndDate:(NSDate*)endDate strict:(BOOL)strict
 {
     NSDate* dayEnds = [day dateByAddingTimeInterval:86400];
     
@@ -37,13 +37,28 @@
             return nil;
     }
     
+    // Keeping the view for all day events in a reasonable visible range
+    NSInteger offset = (strict ? 0 : 1);
+    if ( startHours < WVSFirstHourInCalendar - offset )
+    {
+        startHours = WVSFirstHourInCalendar - offset ;
+        if ( startHours >= endHours )
+            return nil;
+    }
+    if ( endHours > WVSFirstHourInCalendar + WVSHoursToShowInCalendar + offset )
+    {
+        endHours = WVSFirstHourInCalendar + WVSHoursToShowInCalendar + offset;
+        if ( endHours <= startHours )
+            return nil;
+    }
+    
     UIView* segmentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1)];
     if ( [startDate compare:day] == NSOrderedAscending )
         segmentView.originY = 0;
     else
         segmentView.originY = (startHours - (float)WVSFirstHourInCalendar)*(float)WVSDayViewRowHeight + WVSDayViewHeaderHeight + WVSDayViewTopOffset;
     
-    segmentView.height = (float)WVSDayViewRowHeight*([endDate timeIntervalSince1970] - [startDate timeIntervalSince1970])/WVSDayViewRowInSeconds;
+    segmentView.height = (float)WVSDayViewRowHeight*(endHours - startHours);
     
     return segmentView;
 }
@@ -60,12 +75,12 @@
     for ( WVSSegment* segment in segments )
     {
         // Get segment view
-        UIView* segmentView = [self createViewForDay:day withStartDate:segment.startDate andEndDate:segment.endDate strict:YES];
+        UIView* segmentView = [self createEventViewForDay:day withStartDate:segment.startDate andEndDate:segment.endDate strict:YES];
         if ( ! segmentView )
             continue;
         
         // Init it with other user's segment
-        segmentView.backgroundColor = [UIColor colorWithHexString:@"bebebe"];
+        segmentView.backgroundColor = [UIColor colorWithHexString:@"bebebebe"];
         
         UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, self.width, 20)];
         label.text = @"Nina not available";
@@ -80,7 +95,7 @@
     for ( WVSEvent* event in events )
     {
         // Get segment view
-        UIView* segmentView = [self createViewForDay:day withStartDate:event.startDate andEndDate:event.endDate strict:NO];
+        UIView* segmentView = [self createEventViewForDay:day withStartDate:event.startDate andEndDate:event.endDate strict:NO];
         if ( ! segmentView )
             continue;
         
