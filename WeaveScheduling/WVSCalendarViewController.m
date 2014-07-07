@@ -47,17 +47,23 @@
     // Create time table on the left
     for ( NSInteger n = 0; n < WVSHoursToShowInCalendar+1; n++ )
     {
+        NSInteger hour = n+WVSFirstHourInCalendar;
         UILabel* timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -2+50*n, 36, 22)];
-        timeLabel.text = [NSString stringWithFormat:@"%d", n+WVSFirstHourInCalendar];
+        if ( hour == 12 )
+            timeLabel.text = @"Noon";
+        else if ( hour < 12 )
+            timeLabel.text = [NSString stringWithFormat:@"%dam", hour%12];
+        else
+            timeLabel.text = [NSString stringWithFormat:@"%dpm", hour%12];
         timeLabel.textAlignment = NSTextAlignmentRight;
-        timeLabel.font = [UIFont systemFontOfSize:14];
+        timeLabel.font = [UIFont systemFontOfSize:12];
         [_timeView addSubview:timeLabel];
     }
     
     // Creating new meeting view if needed
     if ( _meeting )
     {
-        [self createNewMeetingView:_meeting.startDate];
+        [self createNewMeetingView];
         _dayToAddNewMeeting = daysBetweenDates([NSDate date], _meeting.startDate);
         if ( _dayToAddNewMeeting >= WVSCalendarDaysToLoad )
             _dayToAddNewMeeting = -1;
@@ -89,6 +95,10 @@
     // Tap recognizer for collection
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(collectionHandleTap:)];
     [_collectionView addGestureRecognizer:tapRecognizer];
+    
+    // Scroll to tomorrow by default
+    if ( ! _meeting )
+        [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
     
     self.navigationController.navigationBar.hidden = NO;
 }
@@ -125,7 +135,7 @@
     
     // Setup cell
     WVSCalendarCollectionCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"dayCell" forIndexPath:indexPath];
-    [cell.view removeFromSuperview];
+    [cell.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [cell addSubview:dailyView];
     cell.view = dailyView;
     cell.view.dayLabel.originY = _scrollView.contentInset.top + _scrollView.contentOffset.y;
@@ -152,10 +162,10 @@
     return proposedTime;
 }
 
-- (void)createNewMeetingView:(NSDate*)date
+- (void)createNewMeetingView
 {
     // Daytime calculation
-    NSDateComponents* components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate:date];
+    NSDateComponents* components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate:_meeting.startDate];
     NSTimeInterval time = [components hour]*3600 + [components minute]*60 + [components second];
     
     // Calculate view position
@@ -163,25 +173,11 @@
     
     // Create meeting view if needed
     if ( ! _meetingView )
-    {
-        // TODO: here's the third initializer for meeting view separate class
-        _meetingView = [[UIView alloc] initWithFrame:CGRectMake(0, verticalPosition, WVSDayViewSize.width, WVSDayViewRowHeight*WVSDefaultMeetingDuration/WVSDayViewRowInSeconds)];
-        _meetingView.backgroundColor = [UIColor colorWithHexString:@"5ffdb8"];
-        
-        // Label
-        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, _meetingView.width, 40)];
-        NSString* titleString = _meeting.title;
-        NSString* locationString = @"Tap \"Done\" to finish";
-        label.text = [NSString stringWithFormat:@"%@\n%@", titleString, locationString];
-        label.numberOfLines = 2;
-        label.font = [UIFont systemFontOfSize:14];
-        [_meetingView addSubview:label];
-    }
-    else // otherwise remove it from previous cell before adding again
-    {
-        _meetingView.originY = verticalPosition;
+        _meetingView = [[WVSCalendarEventView alloc] initWithNewMeeting:_meeting];
+    else
         [_meetingView removeFromSuperview];
-    }
+    
+    _meetingView.originY = verticalPosition;
 }
 
 - (void)collectionHandleTap:(UITapGestureRecognizer*)sender{
@@ -225,7 +221,7 @@
     
     // Create or update meeting if created
     if ( ! _meeting )
-        _meeting = [WVSEvent eventWithNewEvent:date withTitle:@"Nina and Username (unconfirmed)" andLocation:@"Creamery"];
+        _meeting = [WVSEvent eventWithNewEvent:date withTitle:@"Nina and Username" andLocation:@"Creamery"];
     else
     {
         _meeting.startDate = date;
@@ -233,7 +229,7 @@
     }
     
     // Creating meeting view and adding to the day cell
-    [self createNewMeetingView:date];
+    [self createNewMeetingView];
     [_dayViews[cell] addSubview:_meetingView];
     [_dayViews[cell] bringSubviewToFront:_dayViews[cell].dayLabel]; // TODO (to initializer too)
     

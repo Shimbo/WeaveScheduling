@@ -17,4 +17,7 @@
 @property (atomic, retain) NSDate* startDate;
 @property (atomic, retain) NSDate* endDate;
 
+- (id) initWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate;
++ (id) segmentWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate;
+
 @end

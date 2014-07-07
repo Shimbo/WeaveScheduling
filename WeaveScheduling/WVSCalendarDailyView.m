@@ -7,61 +7,8 @@
 //
 
 #import "WVSCalendarDailyView.h"
-#import "WVSEvent.h"
 
 @implementation WVSCalendarDailyView
-
-- (UIView*) createEventViewForDay:(NSDate*)day withStartDate:(NSDate*)startDate andEndDate:(NSDate*)endDate strict:(BOOL)strict
-{
-    NSDate* dayEnds = [day dateByAddingTimeInterval:86400];
-    
-    // Check if segment doesn't intersect with this day
-    NSComparisonResult startResult = [startDate compare:day];
-    NSComparisonResult endResult = [endDate compare:dayEnds];
-    if ( startResult == endResult )
-        return nil;
-    
-    // Extract hours
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:startDate];
-    float startHours = (float)[components hour] + ((float)[components minute])/60.0;
-    components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:endDate];
-    float endHours = (float)[components hour] + ((float)[components minute])/60.0;
-    
-    // Hide events that are out of the main range. Used for other's calendar events
-    if ( strict )
-    {
-        if ( startHours >= WVSFirstHourInCalendar + WVSHoursToShowInCalendar )
-            return nil;
-        if ( endHours <= WVSFirstHourInCalendar )
-            return nil;
-    }
-    
-    // Keeping the view for all day events in a reasonable visible range
-    NSInteger offset = (strict ? 0 : 1);
-    if ( startHours < WVSFirstHourInCalendar - offset )
-    {
-        startHours = WVSFirstHourInCalendar - offset ;
-        if ( startHours >= endHours )
-            return nil;
-    }
-    if ( endHours > WVSFirstHourInCalendar + WVSHoursToShowInCalendar + offset )
-    {
-        endHours = WVSFirstHourInCalendar + WVSHoursToShowInCalendar + offset;
-        if ( endHours <= startHours )
-            return nil;
-    }
-    
-    UIView* segmentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1)];
-    if ( [startDate compare:day] == NSOrderedAscending )
-        segmentView.originY = 0;
-    else
-        segmentView.originY = (startHours - (float)WVSFirstHourInCalendar)*(float)WVSDayViewRowHeight + WVSDayViewHeaderHeight + WVSDayViewTopOffset;
-    
-    segmentView.height = (float)WVSDayViewRowHeight*(endHours - startHours);
-    
-    return segmentView;
-}
 
 - (void) setupDay:(NSDate*)day fromEvents:(NSArray*)events andSegments:(NSArray*)segments
 {
@@ -71,50 +18,30 @@
     [formatter setDoesRelativeDateFormatting:YES];
     _dayLabel.text = [formatter stringFromDate:day];
     
+    // Past time block for today
+    if ( daysBetweenDates( day, [NSDate date]) == 0 )
+    {
+        WVSCalendarEventView* eventView = [[WVSCalendarEventView alloc] initForTheDay:day withSegment:[WVSSegment segmentWithStartDate:day endDate:[NSDate date]] andType:WVSEventTypePast];
+        if ( eventView )
+            [self addSubview:eventView];
+    }
+    
     // Opponent's calendar first, mark with gray
     for ( WVSSegment* segment in segments )
     {
         // Get segment view
-        UIView* segmentView = [self createEventViewForDay:day withStartDate:segment.startDate andEndDate:segment.endDate strict:YES];
-        if ( ! segmentView )
-            continue;
-        
-        // Init it with other user's segment
-        segmentView.backgroundColor = [UIColor colorWithHexString:@"bebebebe"];
-        
-        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, self.width, 20)];
-        label.text = @"Nina not available";
-        label.font = [UIFont systemFontOfSize:14];
-        label.textColor = [UIColor grayColor];
-        [segmentView addSubview:label];
-        
-        [self addSubview:segmentView];
+        WVSCalendarEventView* eventView = [[WVSCalendarEventView alloc] initForTheDay:day withSegment:segment andType:WVSEventTypeAnother];
+        if ( eventView )
+            [self addSubview:eventView];
     }
     
     // User's calendar, mark with blue
     for ( WVSEvent* event in events )
     {
         // Get segment view
-        UIView* segmentView = [self createEventViewForDay:day withStartDate:event.startDate andEndDate:event.endDate strict:NO];
-        if ( ! segmentView )
-            continue;
-        
-        // Init it with user's event (TODO: refactor it to a separate class with two initializers)
-        segmentView.backgroundColor = [UIColor colorWithHexString:@"7794cb"];
-        
-        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, self.width, 40)];
-        NSString* titleString = event.title;
-        if ( ! titleString )
-            titleString = @"";
-        NSString* locationString = event.location;
-        if ( ! locationString )
-            locationString = @"";
-        label.text = [NSString stringWithFormat:@"%@\n%@", titleString, locationString];
-        label.numberOfLines = 2;
-        label.font = [UIFont systemFontOfSize:14];
-        [segmentView addSubview:label];
-        
-        [self addSubview:segmentView];
+        WVSCalendarEventView* eventView = [[WVSCalendarEventView alloc] initForTheDay:day withSegment:event andType:WVSEventTypeOwn];
+        if ( eventView )
+            [self addSubview:eventView];
     }
     
     [self bringSubviewToFront:_dayLabel];

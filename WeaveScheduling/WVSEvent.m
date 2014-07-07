@@ -12,7 +12,7 @@
 
 #pragma mark - Initializers
 
-- (instancetype) initWithLocalEvent:(EKEvent*)event
+- (id) initWithLocalEvent:(EKEvent*)event
 {
     // Parent initialization
     self = [super init];
@@ -27,23 +27,7 @@
     return self;
 }
 
-- (instancetype) initWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate
-{
-    if ( ! startDate || ! endDate )
-        return nil;
-    
-    // Parent initialization
-    self = [super init];
-    if (! self)
-        return nil;
-    
-    _startDate = startDate;
-    _endDate = endDate;
-    
-    return self;
-}
-
-- (instancetype) initWithNewEvent:(NSDate*)startDate withTitle:(NSString*)title andLocation:(NSString*)location
+- (id) initWithNewEvent:(NSDate*)startDate withTitle:(NSString*)title andLocation:(NSString*)location
 {
     if ( ! startDate )
         return nil;
@@ -61,19 +45,19 @@
     return self;
 }
 
-+ (instancetype) eventWithLocalEvent:(EKEvent*)event
++ (id) eventWithLocalEvent:(EKEvent*)event
 {
     WVSEvent* thisEvent = [[WVSEvent alloc] initWithLocalEvent:event];
     return thisEvent;
 }
 
-+ (instancetype) eventWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate
++ (id) eventWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate
 {
     WVSEvent* event = [[WVSEvent alloc] initWithStartDate:startDate endDate:endDate];
     return event;
 }
 
-+ (instancetype) eventWithNewEvent:(NSDate*)startDate withTitle:(NSString*)title andLocation:(NSString*)location
++ (id) eventWithNewEvent:(NSDate*)startDate withTitle:(NSString*)title andLocation:(NSString*)location
 {
     WVSEvent* event = [[WVSEvent alloc] initWithNewEvent:startDate withTitle:title andLocation:location];
     return event;

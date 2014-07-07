@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WVSCalendarDailyView.h"
+#import "WVSCalendarEventView.h"
 #import "WVSCalendar.h"
 
 @interface WVSCalendarViewController : UIViewController <UIScrollViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
@@ -24,8 +25,8 @@
     WVSCalendarDailyView*  _dayViews[WVSCalendarDaysToLoad];
     
     // New meeting data and view
-    WVSEvent*   _meeting;
-    UIView*     _meetingView;
+    WVSEvent*               _meeting;
+    WVSCalendarEventView*   _meetingView;
     
     // Cached for scrolling
     NSInteger   _dayToAddNewMeeting;

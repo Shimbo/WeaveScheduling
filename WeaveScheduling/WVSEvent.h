@@ -20,9 +20,9 @@
 @property (atomic, retain, readonly) NSString* title;
 @property (atomic, retain, readonly) NSString* location;
 
-+ (instancetype) eventWithLocalEvent:(EKEvent*)event;
-+ (instancetype) eventWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate;
-+ (instancetype) eventWithNewEvent:(NSDate*)startDate withTitle:(NSString*)title andLocation:(NSString*)location;
++ (id) eventWithLocalEvent:(EKEvent*)event;
++ (id) eventWithStartDate:(NSDate*)startDate endDate:(NSDate*)endDate;
++ (id) eventWithNewEvent:(NSDate*)startDate withTitle:(NSString*)title andLocation:(NSString*)location;
 
 - (void) addToCalendar:(UIViewController*)parentController withTarget:(id)target andSelector:(SEL)selector;
 

@@ -159,6 +159,11 @@
 
 - (BOOL) checkTimeAvailability:(NSDate*)date
 {
+    // Date is in the past
+    if ( [date compare:[NSDate date]] == NSOrderedAscending )
+          return NO;
+    
+    // Check events
     NSDate* endDate = [date dateByAddingTimeInterval:WVSDefaultMeetingDuration];
     for (WVSEvent* event in _events)
     {

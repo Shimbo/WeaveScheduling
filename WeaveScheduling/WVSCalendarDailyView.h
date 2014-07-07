@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WVSEvent.h"
+#import "WVSCalendarEventView.h"
 
 @interface WVSCalendarDailyView : UIView
 
