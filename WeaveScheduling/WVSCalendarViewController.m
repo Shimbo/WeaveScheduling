@@ -86,7 +86,7 @@
         if ( _dayToAddNewMeeting == n )
         {
             [dailyView addSubview:_meetingView];
-            [dailyView bringSubviewToFront:dailyView.dayLabel]; // TODO (to initializer too)
+            [dailyView bringSubviewToFront:dailyView.dayLabel];
         }
         
         _dayViews[n] = dailyView;
@@ -231,7 +231,7 @@
     // Creating meeting view and adding to the day cell
     [self createNewMeetingView];
     [_dayViews[cell] addSubview:_meetingView];
-    [_dayViews[cell] bringSubviewToFront:_dayViews[cell].dayLabel]; // TODO (to initializer too)
+    [_dayViews[cell] bringSubviewToFront:_dayViews[cell].dayLabel];
     
     // Enable done button
     if ( ! self.navigationItem.rightBarButtonItem )

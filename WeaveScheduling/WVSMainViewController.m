@@ -34,6 +34,10 @@
 }
 
 - (IBAction)createMeetingTapped:(id)sender {
+    
+    if ( ! _stubUserCalendar )
+        return;
+    
     WVSCalendarViewController* calendarView = [[WVSCalendarViewController alloc] initWithOwnCalendar:_currentUserCalendar anotherCalendar:_stubUserCalendar andMeeting:nil];
     [self.navigationController pushViewController:calendarView animated:YES];
 }
@@ -44,12 +48,12 @@
 {
     EKEventStore *eventStore = [[EKEventStore alloc] init];
     [eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error)
-     {
-         if (!granted)
-             NSLog(@"Error: access to event store was not granted");
-         else
-             [self saveCurrentCalendar];
-     }];
+    {
+        if (!granted)
+            NSLog(@"Error: access to event store was not granted");
+        else
+            [self saveCurrentCalendar];
+    }];
 }
 
 - (void) saveCurrentCalendar
@@ -83,7 +87,8 @@
         }
         else
         {
-            // TODO: error message
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No internet" message:@"Loading failed. Please check your internet connection." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         }
         [_activityIndicator stopAnimating];
         self.view.userInteractionEnabled = YES;
