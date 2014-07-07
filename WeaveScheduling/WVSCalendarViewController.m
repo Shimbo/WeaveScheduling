@@ -197,10 +197,10 @@
     // Positioning inside the cell
     CGPoint pointInCell = CGPointMake(((NSInteger)tapPoint.x % (NSInteger)WVSDayViewSize.width), tapPoint.y);
     
-    // Tapped on the header section
+    // Return if tapped on the header section
     if ( pointInCell.y < WVSDayViewHeaderHeight )
         return;
-
+    
     // Centering and fixing edge cases
     pointInCell.y -= WVSDayViewRowHeight / 2.0;
     if ( pointInCell.y < WVSDayViewHeaderHeight + WVSDayViewTopOffset )
@@ -225,7 +225,7 @@
     
     // Create or update meeting if created
     if ( ! _meeting )
-        _meeting = [WVSEvent eventWithNewEvent:date withTitle:@"Nina and Username" andLocation:@""];
+        _meeting = [WVSEvent eventWithNewEvent:date withTitle:@"Nina and Username" andLocation:@"Creamery"];
     else
     {
         _meeting.startDate = date;
@@ -238,9 +238,11 @@
     [_dayViews[cell] bringSubviewToFront:_dayViews[cell].dayLabel]; // TODO (to initializer too)
     
     // Enable done button
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone
-                                                               target:self action:@selector(doneTapped:)];
-    self.navigationItem.rightBarButtonItem = doneButton;
+    if ( ! self.navigationItem.rightBarButtonItem )
+    {
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneTapped:)];
+        self.navigationItem.rightBarButtonItem = doneButton;
+    }
 }
 
 #pragma mark - ScrollView delegate

@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WVSNewMeetingViewController">
             <connections>
+                <outlet property="_activityIndicator" destination="vcN-a7-5Bb" id="DXe-Cy-BJI"/>
                 <outlet property="_mapView" destination="Bx0-oR-7xA" id="c9y-3d-qdw"/>
                 <outlet property="_whenLabel" destination="sr5-ws-Lzc" id="Eko-3f-Tsu"/>
                 <outlet property="_whereLabel" destination="k66-7A-F3e" id="3ca-bA-geC"/>
@@ -85,6 +86,9 @@
                         <color key="titleColor" red="0.097568116260000004" green="0.77505181759999997" blue="0.47885662159999998" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="confirmTapped:" destination="-1" eventType="touchUpInside" id="UaF-jg-jYk"/>
+                    </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ACi-Fd-Gor">
                     <rect key="frame" x="20" y="21" width="97" height="21"/>
@@ -98,6 +102,10 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="vcN-a7-5Bb">
+                    <rect key="frame" x="151" y="241" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="0.21201371173469385" green="0.20860652234214538" blue="0.21116191438655676" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

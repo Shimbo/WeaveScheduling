@@ -24,11 +24,6 @@
     return self;
 }
 
-- (IBAction)changeTimeTapped:(id)sender {
-    WVSCalendarViewController* calendarView = [[WVSCalendarViewController alloc] initWithOwnCalendar:_ownCalendar anotherCalendar:_anotherCalendar andMeeting:_meeting];
-    [self.navigationController pushViewController:calendarView animated:YES];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -77,6 +72,31 @@
     NSString* endTimeString = [formatterTime stringFromDate:_meeting.endDate];
 
     _whenLabel.text = [NSString stringWithFormat:@"%@\n%@ to %@", dateString, startTimeString, endTimeString];
+}
+
+#pragma mark - Button handlers
+
+- (IBAction)changeTimeTapped:(id)sender {
+    WVSCalendarViewController* calendarView = [[WVSCalendarViewController alloc] initWithOwnCalendar:_ownCalendar anotherCalendar:_anotherCalendar andMeeting:_meeting];
+    [self.navigationController pushViewController:calendarView animated:YES];
+}
+
+- (void)meetingAddedToCalendar
+{
+    [_activityIndicator stopAnimating];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)confirmTapped:(id)sender {
+    
+    // Loading animation (as for some reason opening calendar view takes time sometimes)
+    [_activityIndicator startAnimating];
+    self.view.userInteractionEnabled = NO;
+    
+    // Note: here should be save call to store the created meeting on backend
+    
+    // Adding to calendar
+    [_meeting addToCalendar:self withTarget:self andSelector:@selector(meetingAddedToCalendar)];
 }
 
 @end

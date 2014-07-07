@@ -13,6 +13,7 @@
 
 @interface WVSNewMeetingViewController : UIViewController
 {
+    IBOutlet UIActivityIndicatorView *_activityIndicator;
     IBOutlet MKMapView *_mapView;
     
     WVSCalendar* _ownCalendar;
@@ -26,5 +27,6 @@
 
 - (id) initWithOwnCalendar:(WVSCalendar*)ownCalendar anotherCalendar:(WVSCalendar*)anotherCalendar andMeeting:(WVSEvent *)meeting;
 - (IBAction)changeTimeTapped:(id)sender;
+- (IBAction)confirmTapped:(id)sender;
 
 @end
