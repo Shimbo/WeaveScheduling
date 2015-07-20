@@ -7,10 +7,13 @@ Screenshots
 ===============
 
 Entry point:
+
 ![](/Screenshots/s1.png)
 
 Scheduling:
+
 ![](/Screenshots/s2.png)
 
 Sending invite:
+
 ![](/Screenshots/s3.png)
