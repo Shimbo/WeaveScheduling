@@ -6,8 +6,8 @@ Demo project made during a single weekend while I was discussing job opportuniti
 Screenshots
 ===============
 
-![Entry point](https://github.com/vernon99/WeaveScheduling/blob/master/Screenshots/s1.png =320x)
+![Entry point](/Screenshots/s1.png =320x)
 
-![Scheduling](https://github.com/vernon99/WeaveScheduling/blob/master/Screenshots/s2.png =320x)
+![Scheduling](/Screenshots/s2.png =320x)
 
-![Approving suggestion](https://github.com/vernon99/WeaveScheduling/blob/master/Screenshots/s3.png =320x)
+![Approving suggestion](/Screenshots/s3.png =320x)
