@@ -6,8 +6,11 @@ Demo project made during a single weekend while I was discussing job opportuniti
 Screenshots
 ===============
 
-![Entry point](/Screenshots/s1.png)
+Entry point:
+![](/Screenshots/s1.png)
 
-![Scheduling](/Screenshots/s2.png)
+Scheduling:
+![](/Screenshots/s2.png)
 
-![Approving suggestion](/Screenshots/s3.png)
+Sending invite:
+![](/Screenshots/s3.png)
